@@ -1,5 +1,6 @@
 package interfaces;
 
+import java.util.List;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.Date;
@@ -29,5 +30,6 @@ public interface IEvento extends Remote{
 					 int cupos, 
 					 int puntos, 
 					 String tipo_evento)throws RemoteException;
+	List <Evento> searchEventos() throws RemoteException;
 
 }

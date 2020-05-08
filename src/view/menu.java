@@ -3,11 +3,10 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 
-import control.eventoControl;
+//import control.eventoControl;
 import control.miembroControl;
 import persistence.Miembro;
 
@@ -20,13 +19,14 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 
-public class menu {
+public class Menu {
 	
-	private eventoControl ec;
+	//private eventoControl ec;
 	private miembroControl mc;
 	private JFrame frame;
 	private JTable table;
 	List<Miembro> l;
+	DefaultTableModel modelo;
 
 	/**
 	 * Launch the application.
@@ -35,7 +35,7 @@ public class menu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					menu window = new menu();
+					Menu window = new Menu();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,14 +49,14 @@ public class menu {
 	 * @throws NotBoundException 
 	 * @throws RemoteException 
 	 */
-	public menu() throws RemoteException, NotBoundException {
+	public Menu() throws RemoteException, NotBoundException {
 		initialize();
-		ec = new eventoControl();
+		//ec = new eventoControl();
 		mc = new miembroControl();
-		llenarTabla();
+		llenarTablaRankig();
 	}
 
-	public void llenarTabla() throws RemoteException, NotBoundException {
+	public void llenarTablaRankig() throws RemoteException, NotBoundException {
 		l = mc.searchMiembros();
 		
 		for (int i = 0; i < l.size(); i++) {
@@ -66,7 +66,6 @@ public class menu {
 			fila[2] = l.get(i).getPuntos();
 			((DefaultTableModel) table.getModel()).addRow ( fila ); // Añade una fila al final
 		}
-	
 	}
 	
 	/**
@@ -97,7 +96,8 @@ public class menu {
 		});
 		frame.getContentPane().add(btnNewButton_1);
 		
-		table = new JTable();
+		modelo = new DefaultTableModel();
+		table = new JTable(modelo);
 		table.setBounds(416, 11, -251, 239);
 	    table.setModel(new DefaultTableModel(
 		    	new Object[][] {},
@@ -107,7 +107,7 @@ public class menu {
 		    ));
 		    table.getColumnModel().getColumn(0).setPreferredWidth(100);
 		    table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		    table.getColumnModel().getColumn(2).setPreferredWidth(100);
 		frame.getContentPane().add(table);
+		
 	}
 }
