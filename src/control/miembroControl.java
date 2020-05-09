@@ -8,14 +8,13 @@ import java.rmi.registry.Registry;
 
 import interfaces.IMiembro;
 import persistence.Miembro;
-import persistence.NotFoundException;
 
-public class miembroControl {
+public class MiembroControl {
 	
 	//private Miembro a = null;;
 	private IMiembro im = null;
 	
-	public miembroControl() throws RemoteException, NotBoundException {
+	public MiembroControl() throws RemoteException, NotBoundException {
 			Registry r = LocateRegistry.getRegistry(10000);
 			im = (IMiembro) r.lookup("Miembro");
 	}
@@ -38,6 +37,7 @@ public class miembroControl {
 		List<Miembro> l = null;
 		l = im.searchMiembros();
 		return l;
-		
 	}
+	
+	
 }

@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import control.miembroControl;
+import control.MiembroControl;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -15,10 +15,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 
-public class loginGUI {
+public class LoginGUI {
 
 	// private asistenteControl ac;
-	private miembroControl mc;
+	private MiembroControl mc;
 	boolean entrar;
 	private JFrame frame;
 	private JTextField textField_cedula;
@@ -30,7 +30,7 @@ public class loginGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					loginGUI window = new loginGUI();
+					LoginGUI window = new LoginGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,10 +42,11 @@ public class loginGUI {
 	/**
 	 * Create the application.
 	 */
-	public loginGUI() throws RemoteException, NotBoundException {
+	public LoginGUI() throws RemoteException, NotBoundException {
 		initialize();
 		// ac = new asistenteControl();
-		mc = new miembroControl();
+		mc = new MiembroControl();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -81,21 +82,22 @@ public class loginGUI {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Entre a la accion del boton");
-				int login = Integer.parseInt(textField_cedula.getText());
-				entrar = mc.login(login);
-
-				if (entrar == true) {
-					System.out.println("entraste");
-					try {
-						Menu m = new Menu();
-						frame.dispose();
-					} catch (RemoteException | NotBoundException e1) {
-						e1.printStackTrace();
+				
+					int login = Integer.parseInt(textField_cedula.getText());
+					entrar = mc.login(login);
+	
+					if (entrar == true) {
+						System.out.println("entraste");
+						try {
+							Menu m = new Menu();
+							frame.dispose();
+						} catch (RemoteException | NotBoundException e1) {
+							e1.printStackTrace();
+						}
+						
+					} else {
+						System.out.println("yape");
 					}
-					
-				} else {
-					System.out.println("yape");
-				}
 			}
 		});
 		panel.add(btnNewButton);

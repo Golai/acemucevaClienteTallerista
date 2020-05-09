@@ -5,9 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
-
-//import control.eventoControl;
-import control.miembroControl;
 import persistence.Miembro;
 
 
@@ -17,14 +14,11 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.awt.event.ActionEvent;
-import javax.swing.JTable;
+import javax.swing.JLabel;
 
 public class Menu {
 	
-	//private eventoControl ec;
-	private miembroControl mc;
 	private JFrame frame;
-	private JTable table;
 	List<Miembro> l;
 	DefaultTableModel modelo;
 
@@ -51,21 +45,7 @@ public class Menu {
 	 */
 	public Menu() throws RemoteException, NotBoundException {
 		initialize();
-		//ec = new eventoControl();
-		mc = new miembroControl();
-		llenarTablaRankig();
-	}
-
-	public void llenarTablaRankig() throws RemoteException, NotBoundException {
-		l = mc.searchMiembros();
-		
-		for (int i = 0; i < l.size(); i++) {
-			Object [] fila = new Object[3];
-			fila[0] = l.get(i).getCedula();
-			fila[1] = l.get(i).getNombre();
-			fila[2] = l.get(i).getPuntos();
-			((DefaultTableModel) table.getModel()).addRow ( fila ); // Añade una fila al final
-		}
+		frame.setVisible(true);
 	}
 	
 	/**
@@ -73,41 +53,60 @@ public class Menu {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 300, 258);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Ranking");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnRanking = new JButton("Ranking");
+		btnRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("Entre a la accion del boton");
+				try {
+					RankingGUI r = new RankingGUI();
+					frame.dispose();
+				} catch (RemoteException | NotBoundException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});
-		btnNewButton.setBounds(20, 127, 108, 33);
-		frame.getContentPane().add(btnNewButton);
+		btnRanking.setBounds(81, 113, 120, 33);
+		frame.getContentPane().add(btnRanking);
 		
-		JButton btnNewButton_1 = new JButton("Eventos");
-		btnNewButton_1.setBounds(20, 64, 108, 33);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnEventos = new JButton("Eventos");
+		btnEventos.setBounds(81, 69, 120, 33);
+		btnEventos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Entre a la accion del boton");
-					table.setVisible(true);
+				try {
+					RegistroE_GUI r = new RegistroE_GUI();
+					frame.dispose();
+				} catch (RemoteException | NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				frame.dispose();
 			}
 		});
-		frame.getContentPane().add(btnNewButton_1);
+		frame.getContentPane().add(btnEventos);
 		
-		modelo = new DefaultTableModel();
-		table = new JTable(modelo);
-		table.setBounds(416, 11, -251, 239);
-	    table.setModel(new DefaultTableModel(
-		    	new Object[][] {},
-		    	new String[] {
-		    		"Cedula","Nombre","Puntos" 
-		    	}
-		    ));
-		    table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		    table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		frame.getContentPane().add(table);
+		JLabel lblNewLabel = new JLabel("BIENVENIDO");
+		lblNewLabel.setBounds(100, 21, 78, 14);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("Cerrar Sesion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					LoginGUI l = new LoginGUI();
+				} catch (RemoteException | NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setBounds(81, 157, 120, 33);
+		frame.getContentPane().add(btnNewButton);
 		
 	}
 }

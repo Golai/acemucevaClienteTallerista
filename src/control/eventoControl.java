@@ -9,12 +9,12 @@ import java.util.List;
 import interfaces.IEvento;
 import persistence.Evento;
 
-public class eventoControl {
+public class EventoControl {
 
 	// private Miembro a = null;;
 	private IEvento ie = null;
 
-	public eventoControl() throws RemoteException, NotBoundException {
+	public EventoControl() throws RemoteException, NotBoundException {
 		Registry r = LocateRegistry.getRegistry(10000);
 		ie = (IEvento) r.lookup("Evento");
 	}

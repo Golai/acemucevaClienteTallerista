@@ -8,12 +8,12 @@ import java.rmi.registry.Registry;
 import interfaces.IAsistente;
 import persistence.Asistente;
 
-public class asistenteControl {
+public class AsistenteControl {
 	
 	private Asistente a = null;;
 	private IAsistente ia = null;
 	
-	public asistenteControl()throws RemoteException, NotBoundException {
+	public AsistenteControl()throws RemoteException, NotBoundException {
 		Registry r = LocateRegistry.getRegistry(10000);
 		ia = (IAsistente) r.lookup("Asistente");
 	}
